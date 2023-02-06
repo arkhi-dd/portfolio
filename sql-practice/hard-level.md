@@ -1,10 +1,9 @@
 ```sql
 
 /* #1. Show all of the patients grouped into weight groups.
--- Show the total amount of patients in each weight group.
--- Order the list by the weight group decending.
--- For example, if they weight 100 to 109 they are placed in the 100 weight group, 110-119 = 110 weight group, etc. */
-
+- Show the total amount of patients in each weight group.
+- Order the list by the weight group decending.
+- For example, if they weight 100 to 109 they are placed in the 100 weight group, 110-119 = 110 weight group, etc. */
 SELECT
   COUNT(*) AS patients_in_group,
   FLOOR(weight / 10) * 10 AS weight_group
@@ -15,7 +14,6 @@ ORDER BY weight_group DESC;
 /* #2. Show patient_id, weight, height, isObese from the patients table. 
 Display isObese as a boolean 0 or 1. Obese is defined as weight(kg)/(height(m)2) >= 30. 
 weight is in units kg. height is in units cm. */
-
 SELECT 
   patient_id,
   weight,
@@ -25,7 +23,6 @@ FROM patients
 
 /* #3. Show patient_id, first_name, last_name, and attending doctor's specialty.
 Show only the patients who has a diagnosis as 'Epilepsy' and the doctor's first name is 'Lisa' */
-
 SELECT 
   patients.patient_id,
   patients.first_name, 
@@ -45,7 +42,6 @@ The password must be the following, in order:
 1. patient_id
 2. the numerical length of patient's last_name
 3. year of patient's birth_date */
-
 SELECT DISTINCT
   patients.patient_id, 
   concat(patients.patient_id, LEN(last_name), YEAR(birth_date)) AS temp_password
@@ -58,7 +54,6 @@ WHERE admission_date IS NOT NULL
 - All patients with an even patient_id have insurance.
 - Give each patient a 'Yes' if they have insurance, and a 'No' if they don't have insurance.
 - Add up the admission_total cost for each has_insurance group. */
-
 SELECT 
   CASE WHEN (patient_id % 2 = 0) THEN 'Yes' ELSE 'No' END AS has_insurance,
   SUM (CASE WHEN patient_id % 2 = 0 THEN 10 ELSE 50 END) AS total_cost
@@ -73,7 +68,6 @@ Pull all columns for the patient who matches the following criteria:
 - Their weight would be between 60kg and 80kg
 - Their patient_id is an odd number
 - They are from the city 'Kingston */
-
 SELECT * FROM patients
 WHERE 
   first_name LIKE '__r%' 
@@ -85,16 +79,13 @@ WHERE
 
 /* #7. Show the percent of patients that have 'M' as their gender. 
 Round the answer to the nearest hundreth number and in percent form. */
-
 SELECT CONCAT(ROUND(SUM(gender='M') / CAST(COUNT(*) AS float), 4) * 100, '%')
 FROM patients;
 
 -- #8. Sort the province names in ascending order in such a way that the province 'Ontario' is always on top.
-
 SELECT province_name
 FROM province_names
 ORDER BY
   province_name = 'Ontario' DESC,
   province_name
-
 ```
