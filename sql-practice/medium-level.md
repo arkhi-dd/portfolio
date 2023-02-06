@@ -158,7 +158,6 @@ ON patients.province_id = province_names.province_id
 group by province_name
 ORDER BY total_patients DESC
 
-
 /* #22. For every admission, display the patient's full name, their admission diagnosis,
 and their doctor's full name who diagnosed their problem. */
 SELECT CONCAT (patients.first_name, ' ', patients.last_name) AS patient_full_name, diagnosis, CONCAT (doctors.first_name, ' ', doctors.last_name) AS doctor_full_name
@@ -183,4 +182,4 @@ SELECT CONCAT (first_name, ' ', last_name), ROUND((height / 30.48), 1), round((w
 birth_date, REPLACE(REPLACE(gender, 'F', 'Female'),'M', 'Male') 
 FROM patients
 
-```sql
+```
