@@ -19,23 +19,20 @@ weight is in units kg.
 height is in units cm. */
 
 SELECT 
-    patient_id, 
-    weight, 
-    height,
-    CASE WHEN (weight/SQUARE(height/100.0)) >= 30
-    THEN 1
-    ELSE 0 
-    END as isObese
+  patient_id,
+  weight,
+  height,
+  CASE WHEN (weight/SQUARE(height/100.0)) >= 30 THEN 1 ELSE 0 END as isObese
 FROM patients
 
 /* #3. Show patient_id, first_name, last_name, and attending doctor's specialty.
 Show only the patients who has a diagnosis as 'Epilepsy' and the doctor's first name is 'Lisa' */
 
 SELECT 
-	patients.patient_id,
-	patients.first_name, 
-	patients.last_name, 
-	doctors.specialty
+  patients.patient_id,
+  patients.first_name, 
+  patients.last_name, 
+  doctors.specialty
 FROM patients
 JOIN admissions
 ON patients.patient_id = admissions.patient_id
@@ -52,8 +49,8 @@ The password must be the following, in order:
 3. year of patient's birth_date */
 
 SELECT DISTINCT
-	patients.patient_id, 
-	concat(patients.patient_id, LEN(last_name), YEAR(birth_date)) AS temp_password
+  patients.patient_id, 
+  concat(patients.patient_id, LEN(last_name), YEAR(birth_date)) AS temp_password
 FROM patients
 JOIN admissions
 ON patients.patient_id = admissions.patient_id
@@ -64,10 +61,9 @@ WHERE admission_date IS NOT NULL
 - Give each patient a 'Yes' if they have insurance, and a 'No' if they don't have insurance.
 - Add up the admission_total cost for each has_insurance group. */
 
-SELECT CASE WHEN (patient_id % 2 = 0) THEN 'Yes' ELSE 'No' END 
-       as has_insurance,
-       SUM (CASE WHEN patient_id % 2 = 0 THEN 10 ELSE 50 END) 
-       AS total_cost
+SELECT 
+  CASE WHEN (patient_id % 2 = 0) THEN 'Yes' ELSE 'No' END AS has_insurance,
+  SUM (CASE WHEN patient_id % 2 = 0 THEN 10 ELSE 50 END) AS total_cost
 FROM admissions
 GROUP BY has_insurance
 
@@ -92,8 +88,7 @@ WHERE
 /* #7. Show the percent of patients that have 'M' as their gender. 
 Round the answer to the nearest hundreth number and in percent form. */
 
-SELECT 
-   CONCAT(ROUND(SUM(gender='M') / CAST(COUNT(*) AS float), 4) * 100, '%')
+SELECT CONCAT(ROUND(SUM(gender='M') / CAST(COUNT(*) AS float), 4) * 100, '%')
 FROM patients;
 
 -- #8. Sort the province names in ascending order in such a way that the province 'Ontario' is always on top.
